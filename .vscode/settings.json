@@ -1,0 +1,6 @@
+{
+    "editor.tokenColorCustomizations": {
+    "comments": "#31f500" // bright green example
+}
+
+}
