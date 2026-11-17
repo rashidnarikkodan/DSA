@@ -1,37 +1,46 @@
-class Stack{
-    constructor(){
-        this.q = []
+import Queue from '../Queue/1-queue.js'
+class Stack {
+    constructor() {
+        this.queue = new Queue(); // only allow  enqueue() and dequeue() and front()    
     }
-    push(value){
-        this.q.push(value)
-        if(this.q.length>1){
-            this.q.unshift(this.q.pop())
+
+    push(value) { //O(n)
+        this.queue.enqueue(value);
+        let size = this.queue.length()
+        while(size>1){
+            this.queue.enqueue(this.queue.dequeue())
+            size--
         }
     }
-    pop(){
-        return this.isEmpty()?'Queue is Empty':this.q.shift()
+
+    pop() { // O(n)
+        return this.isEmpty() ? null : this.queue.dequeue();
     }
-    front(){
-        return this.isEmpty()?'Queue is empty':this.q[0]
+
+    top() {
+        return this.isEmpty() ? null : this.queue.front();
     }
-    isEmpty(){
-        return this.q.length == 0
+
+    isEmpty() {
+        return this.queue.isEmpty();
     }
-    size(){
-        return this.isEmpty()?'Queue is empty':this.q.length
+
+    size() {
+        return this.queue.length();
     }
 }
 
-const stack = new Stack()
-console.log(stack.isEmpty());
-stack.push(1)
-stack.push(2)
-stack.push(3)
-stack.push(4)
-stack.push(5)
-console.log(stack.pop());
-console.log(stack.size());
-console.log(stack.isEmpty());
-console.log(stack.front());
+const stack = new Stack();
 
-export default Stack
+stack.push(1);
+stack.push(2);
+stack.push(3);
+stack.push(4);
+stack.push(5);
+
+console.log(stack.pop());     // 5
+console.log(stack.size());    // 4
+console.log(stack.isEmpty()); // false
+console.log(stack.top());     // 4
+
+export default Stack;

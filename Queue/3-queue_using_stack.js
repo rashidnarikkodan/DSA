@@ -1,27 +1,35 @@
-class Queue{
-    constructor(){
-        this.stack1 = []
-        this.stack2 = []
+import Stack from "../Stack/1-stack.js"
+class Queue {
+    constructor() {
+        this.input = new Stack()
+        this.output = new Stack()
     }
-    enqueue(val){
-        this.stack1.push(val)
+    enqueue(val) {
+        this.input.push(val)
     }
-    dequeue(){
-        if(this.stack2.length == 0){
-            while(this.stack1.length>0)this.stack2.push(this.stack1.pop())
+    dequeue() {
+        if (this.isEmpty()) return null;
+        if (this.output.isEmpty()) {
+            while (!this.input.isEmpty()) {
+                this.output.push(this.input.pop())
+            }
         }
-        if(this.stack2.length == 0) 'Queue is empty'
-        return this.stack2.pop()
+        return this.output.pop()
     }
-    front(){
-        if(this.stack2.length == 0){
-            while(this.stack1.length>0)this.stack2.push(this.stack1.pop())
+    front() {
+        if (this.isEmpty()) return null;
+        if (this.output.isEmpty()) {
+            while (!this.input.isEmpty()) {
+                this.output.push(this.input.pop())
+            }
         }
-        if(this.stack2.length == 0) 'Queue is empty'
-        return this.stack2[this.stack2.length-1]
+        return this.output.peek()
     }
-    isEmpty(){
-        return this.stack1.length === 0 && this.stack2.length == 0
+    isEmpty() {
+        return this.input.isEmpty() && this.output.isEmpty();
+    }
+    size() {
+        return this.input.size() + this.output.size();
     }
 
 }
@@ -30,7 +38,7 @@ queue.enqueue(10)
 queue.enqueue(20)
 queue.enqueue(30)
 queue.enqueue(40)
-queue.dequeue()
+console.log(queue.dequeue())
 console.log(queue.front());
 console.log(queue.isEmpty());
 

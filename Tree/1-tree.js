@@ -20,7 +20,7 @@ class Tree{
         child.parent = parent
         return child
     }
-    search(target, node){
+    search(target, node = this.root){
         if(node.value === target) return node
         for(let c of node.children) {
             const f = this.search(target,c)
@@ -34,16 +34,16 @@ class Tree{
             this.root = null
             return deleted
         }
-        return this.#deleteDFS(this.root, value)
+        return this.#deleteDFS(value)
     }
-    #deleteDFS(node, value){
+    #deleteDFS(value,node = this.root){
         if(!node) return false
         for(let i=0; i < node.children.length; i++){
             if(node.children[i].value === value){
                 node.children.splice(i,1)
                 return true
             }
-            let deleted = this.#deleteDFS(node.children[i], value)
+            let deleted = this.#deleteDFS(value, node.children[i])
             if(deleted) return true
         }
 
